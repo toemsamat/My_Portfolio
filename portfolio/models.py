@@ -1,7 +1,7 @@
 from django.db import models
 
 from django.db import models
-
+from django.core.validators import FileExtensionValidator
 class Profile(models.Model):
     name = models.CharField(max_length=100)
     headline = models.CharField(max_length=200)
@@ -10,7 +10,11 @@ class Profile(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=15, blank=True)
     location = models.CharField(max_length=100, blank=True)
-    resume = models.FileField(upload_to='resume/', blank=True)
+    # resume = models.FileField(upload_to='resume/', blank=True)
+    resume = models.FileField(
+        upload_to='resumes/',
+        validators=[FileExtensionValidator(['pdf'])]
+    )
     github = models.URLField(blank=True)
     github_icon = models.CharField(max_length=100, default="fab fa-github", blank=True)
     github_color = models.CharField(max_length=20, default="#333", blank=True)
